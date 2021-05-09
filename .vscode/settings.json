@@ -1,0 +1,20 @@
+{
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "vsicons.associations.files": [
+    { "icon": "styled", "extensions": ["styled.ts"] }
+  ],
+  "sonarlint.connectedMode.connections.sonarcloud": [
+    {
+      "organizationKey": "ratedpower",
+      "token": "e041adf567d988670df3e43fd6ece90bd5451511",
+    }
+  ],
+  "sonarlint.connectedMode.project": {
+    "projectKey": "frontReact"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.tslint": true
+  }
+}
+   
