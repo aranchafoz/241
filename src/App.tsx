@@ -4,13 +4,14 @@ import {
   QueryClient,
   QueryClientProvider,
 } from 'react-query'
+import { AppContainer } from './App.styled';
 
 // Create a client
 const queryClient = new QueryClient()
 
 function App() {
   return (
-    <div>
+    <AppContainer>
       {/* Provide the client to the App */}
       <QueryClientProvider client={queryClient}>
 
@@ -20,10 +21,12 @@ function App() {
           defaultTitle="Movie Browser"
         />
 
+        <h2 id="app-name">Movie Browser</h2>
+
         {/* Manage app routes */}
         <Routes />
       </QueryClientProvider>
-    </div>
+    </AppContainer>
   );
 }
 

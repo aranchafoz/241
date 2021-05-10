@@ -1,40 +1,42 @@
 import { DashboardContainer } from './dashboard.styled';
 import { Helmet } from 'react-helmet';
-import { useEffect } from 'react';
-import ImageCarousel from '../../components/image-carousel/image-carousel';
-import { useQuery, useQueryClient } from 'react-query';
-import { usePopularMovies } from '../../services/movies';
+import { usePopularMovies, usePopularSeries, useFamilyMovies, useDocumentaryMovies } from '../../services/movies';
+import MovieRowList from './movie-row-list/movie-row-list';
 
 const Dashboard: React.FC = () => {
-  // Access the client
-  const queryClient = useQueryClient()
   
-  // Queries ({ status, data, error, isFetching })
+  // Query results -> ({ status, data, error, isFetching })
   const popularMovies = usePopularMovies();
-
-
-  useEffect(() => {
-    // poster_path -> image
-    // title
-    console.log('popularMovies: ', popularMovies)
-  }, [popularMovies])
+  const popularSeries = usePopularSeries();
+  const familyMovies = useFamilyMovies();
+  const documentaryMovies = useDocumentaryMovies();
 
   return (
     <DashboardContainer>
       <Helmet>
         <title>Dashboard</title>
       </Helmet>
-      <h4>Popular movies</h4>
-      {popularMovies.status === "loading" ? (
-          "Loading..."
-        ) : popularMovies.status === "error" ? (
-          <span>Error: {popularMovies.error}</span>
-        ) : (  
-          <ImageCarousel />
-        )}
-      <h4>Popular series</h4>
-      <h4>Family</h4>
-      <h4>Documentary</h4>
+
+      <MovieRowList
+        title="Popular movies"
+        queryResult={popularMovies}
+      />
+
+      <MovieRowList
+        title="Popular series"
+        queryResult={popularSeries}
+        titleKey="name"
+      />
+
+      <MovieRowList
+        title="Family"
+        queryResult={familyMovies}
+      />
+
+      <MovieRowList
+        title="Documentary"
+        queryResult={documentaryMovies}
+      />
     </DashboardContainer>
   );
 };
