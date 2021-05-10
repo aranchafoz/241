@@ -2,6 +2,7 @@ import { UseQueryResult } from "react-query";
 import ImageCarousel from "../../../components/image-carousel/image-carousel";
 import { IMovie } from "../../../types/movie-types";
 import { MovieRowListContainer } from "./movie-row-list.styled";
+import { useHistory } from 'react-router';
 
 interface IMovieQueryResult {
   results: IMovie[];
@@ -10,10 +11,12 @@ interface IMovieQueryResult {
 interface IProps {
   title: string;
   queryResult: UseQueryResult<IMovieQueryResult>;
-  titleKey?: 'title' | 'name';
+  type: 'movie' | 'serie';
 }
 
-const MovieRowList: React.FC<IProps> = ({ title, queryResult, titleKey }) => {
+const MovieRowList: React.FC<IProps> = ({ title, queryResult, type }) => {
+  const history = useHistory();
+
   return (
     <MovieRowListContainer>
       <h4 className="section-title">{title}</h4>
@@ -23,9 +26,11 @@ const MovieRowList: React.FC<IProps> = ({ title, queryResult, titleKey }) => {
           <span>Error: {queryResult.error}</span>
         ) : (  
           <ImageCarousel
-            {...{ titleKey }}
+            titleKey={type === 'movie' ? 'title' : 'name'}
             data={queryResult.data?.results ?? []}
-            onClick={(id) => console.log('id: ', id)}
+            onClick={(id) => {
+              history.push(`${type}/${id}`);
+            }}
           />
         )
       }

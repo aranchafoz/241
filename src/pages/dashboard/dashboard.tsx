@@ -1,7 +1,8 @@
 import { DashboardContainer } from './dashboard.styled';
 import { Helmet } from 'react-helmet';
-import { usePopularMovies, usePopularSeries, useFamilyMovies, useDocumentaryMovies } from '../../services/movies';
+import { usePopularMovies, useFamilyMovies, useDocumentaryMovies } from '../../services/movies';
 import MovieRowList from './movie-row-list/movie-row-list';
+import { usePopularSeries } from '../../services/series';
 
 const Dashboard: React.FC = () => {
   
@@ -18,22 +19,25 @@ const Dashboard: React.FC = () => {
       </Helmet>
 
       <MovieRowList
+        type="movie"
         title="Popular movies"
         queryResult={popularMovies}
       />
 
       <MovieRowList
+        type="serie"
         title="Popular series"
         queryResult={popularSeries}
-        titleKey="name"
       />
 
       <MovieRowList
+        type="movie"
         title="Family"
         queryResult={familyMovies}
       />
 
       <MovieRowList
+        type="movie"
         title="Documentary"
         queryResult={documentaryMovies}
       />

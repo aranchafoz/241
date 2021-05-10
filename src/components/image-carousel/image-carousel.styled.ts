@@ -11,6 +11,10 @@ export const ImageCarouselContainer = styled.div`
   grid-gap: 1rem;
   padding: 0 1rem;
 
+  .card {
+    cursor: pointer;
+  }
+
   img {
     width:100%;
     max-width:100%;

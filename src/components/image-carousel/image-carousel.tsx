@@ -13,6 +13,7 @@ const ImageCarousel: React.FC<IProps> = ({ titleKey, data, onClick }) => {
       {data.map((item, key) => (
         <div
           {...{ key }}
+          className="card"
           onClick={() => onClick(item.id)}
         >
           <img
