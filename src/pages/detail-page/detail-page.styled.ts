@@ -20,7 +20,39 @@ export const DetailPageContainer = styled.div`
     grid-area: data;
     padding: 0 2rem;
     color: #bdbdbd;
+
+    .buttons {
+      display: inline-flex;
+    }
+
+    .btn {
+      margin: 0;
+      border: 0;
+      padding: .6rem 1rem;
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c2c2c;
+
+      &.go-back {
+        background: #fbd6a1;
+        margin-right: 1rem;
+
+        &:hover {
+          background: #d5af71;
+        }
+      }
+
+      &.play {
+        background: #40c1d6;
+
+        &:hover {
+          background: #00a4bf;
+        }
+
+      }
+    }
   }
+
   .section-right {
     grid-area: image;
     display: flex;

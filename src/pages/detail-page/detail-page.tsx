@@ -1,8 +1,10 @@
 import { useMovieDetails } from "../../services/movies";
 import { DetailPageContainer } from "./detail-page.styled";
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useSerieDetails } from "../../services/series";
 import { useMemo } from "react";
+import { useModal } from "../../hooks/use-modal";
+import VideoPlayerModal from "./video-player-modal/video-player-modal";
 
 interface IParams {
   id: string;
@@ -14,6 +16,9 @@ interface IProps {
 
 const DetailPage: React.FC<IProps> = ({ type }) => {
   const { id } = useParams<IParams>();
+  const history = useHistory();
+
+  const videoPlayerModal = useModal();
 
   const movieDetails = useMovieDetails(parseInt(id), { skip: type !== 'movie' });
   const serieDetails = useSerieDetails(parseInt(id), { skip: type !== 'serie' });
@@ -39,6 +44,21 @@ const DetailPage: React.FC<IProps> = ({ type }) => {
                 <li>Popularity: {data.popularity}</li>
                 <li>Rating: {data.vote_average} / 10 ({data.vote_count})</li>
               </ul>
+              <div className="buttons">
+                <button
+                  className="btn go-back"
+                  onClick={() => history.goBack()}
+                >
+                  Go back
+                </button>
+
+                <button
+                  className="btn play"
+                  onClick={() => videoPlayerModal.setModalOpen(true)}
+                >
+                  Play trailer
+                </button>
+              </div>
             </div>
             <div className="section-right">
               <img
@@ -46,6 +66,13 @@ const DetailPage: React.FC<IProps> = ({ type }) => {
                 alt={type === 'movie' ? data.title : data.name}
               />
             </div>
+
+            {videoPlayerModal.isOpen && (
+              <VideoPlayerModal
+                isActive={videoPlayerModal.isOpen}
+                onClose={() => videoPlayerModal.setModalOpen(false)}
+              />
+            )}
           </>
         )
       }
